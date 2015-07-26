@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Automatisation.View.SSHUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:conv="clr-namespace:Automatisation.Convertors"
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:wal="clr-namespace:WalburySoftware;assembly=TerminalControl"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="400" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <conv:EnumarableToTextConverter x:Key="EnumarableToTextConverter"/>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--<StackPanel Orientation="Horizontal" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" VerticalAlignment="Center" Height="34" Margin="0,8,0,10" HorizontalAlignment="Stretch">
+            <TextBlock Style="{StaticResource LabelDesc}" Text="Command: "  HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Width="62"/>
+            <TextBox Text="{Binding CommandToExecute, UpdateSourceTrigger=PropertyChanged}"  TextWrapping="Wrap" Width="293" Height="Auto" VerticalAlignment="Center" IsEnabled="{Binding IsIPValid}" Margin="0,8" HorizontalAlignment="Stretch">
+                <TextBox.InputBindings>
+                    <KeyBinding Command="{Binding Path=ExecuteCommand}" Key="Enter" />
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Command="{Binding ExecuteCommand}" Content="execute" VerticalAlignment="Center" Width="75" IsEnabled="{Binding IsIPValid}"/>
+        </StackPanel>-->
+
+        <!--<ListView ItemsSource="{Binding Results}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Result" DisplayMemberBinding="{Binding}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>-->
+        <!--<TextBox DataContext="{Binding Results,  Mode=OneWay, Converter={StaticResource JoinStringsConverter}}" IsReadOnly="True" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15"/>-->
+        <!--<TextBox Text="{Binding Results, Mode=OneWay, Converter={StaticResource EnumarableToTextConverter}}" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15"/>-->
+        <!--<WindowsFormsHost Name="WinFormHost" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15">
+            <wf:FlowLayoutPanel/>
+        </WindowsFormsHost>-->
+        <WindowsFormsHost Name="WinFormHost" Grid.Row="0" Grid.RowSpan="2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15">
+            <wal:TerminalControl Name="Terminal" Host="192.168.17.129" UserName="root" Password="luna1991" Method="SSH2"/>
+        </WindowsFormsHost>
+    </Grid>
+</UserControl>

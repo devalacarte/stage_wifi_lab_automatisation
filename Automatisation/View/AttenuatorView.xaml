@@ -1,0 +1,64 @@
+﻿<UserControl x:Class="Automatisation.View.AttenuatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:vm="clr-namespace:Automatisation.ViewModel"
+             xmlns:v="clr-namespace:Automatisation.View" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignWidth="574.358" d:DesignHeight="330.97">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:AttenuatorUCVM}">
+            <v:AttenuatorUC/>
+        </DataTemplate>
+    </UserControl.Resources>
+    
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Button Command="{Binding CMDRefresh}" Content="Refresh" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Command="{Binding CMDStartAll}" Content="Start All" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Command="{Binding CMDStopAll}" Content="Stop All" Grid.Column="2" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Command="{Binding CMDManualNextStep}" Content="Next Step" ToolTip="For each enabled attenuator: attenuation +|- step" Grid.Column="4" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <ScrollViewer Grid.Column="0" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10,10,10,10">
+            <!--geen path bij binding omdat er een source is opgegegven in datacontext-->
+            <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl.DataContext>
+                    <!--hierop wordt de itemscontrol itemsource gebind-->
+                    <CollectionViewSource Source="{Binding Path=LstAtt}">
+                        <CollectionViewSource.SortDescriptions>
+                            <scm:SortDescription PropertyName="Label" Direction="Ascending"/>
+                        </CollectionViewSource.SortDescriptions>
+                    </CollectionViewSource>
+                </ItemsControl.DataContext>
+                <!--verdeel de grid in 2 colommen-->
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="2,2,2,2">
+                            <v:AttenuatorUC VerticalAlignment="Top" HorizontalAlignment="Center" Height="220" Width="440"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

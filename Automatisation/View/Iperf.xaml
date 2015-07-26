@@ -1,0 +1,126 @@
+﻿<UserControl x:Class="Automatisation.View.Iperf"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             xmlns:vm="clr-namespace:Automatisation.ViewModel"
+             xmlns:v="clr-namespace:Automatisation.View"
+             xmlns:wal="clr-namespace:WalburySoftware;assembly=TerminalControl"
+             xmlns:properties="clr-namespace:Automatisation.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:SSHVM}">
+            <v:SSHUC/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <!--<UserControl.DataContext>
+        <vm:IperfVM />
+    </UserControl.DataContext>-->
+    
+    <Grid Name="GridCodeBehindBreakMVVMQuickAndDirty">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="18"/>
+            <RowDefinition/>
+            <RowDefinition Height="18"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Client" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <WindowsFormsHost Name="WinFormCodeBehindBreakMVVMQuickAndDirty1" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15">
+            <wal:TerminalControl/>
+        </WindowsFormsHost>
+        <TextBlock Text="Server" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <WindowsFormsHost Name="WinFormCodeBehindBreakMVVMQuickAndDirty2" Grid.Row="3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15">
+            <wal:TerminalControl/>
+        </WindowsFormsHost>
+    </Grid>
+    <!-- rechtstreeks hierin steken zonder eerst in SSHUC te steken, aanmaken in viewmodel van iperf -->
+    <!--<Grid>
+        <Button Content="connect" Command="{Binding ConnectStart}" Margin="20,5,248,254"></Button>
+        <ItemsControl ItemsSource="{Binding}" Margin="20">
+            <ItemsControl.DataContext>
+                <CollectionViewSource Source="{Binding Path=LstSSHClients}"/>
+            </ItemsControl.DataContext>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="2"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5,5,5,5">
+                        <WindowsFormsHost VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15">
+                            <wal:TerminalControl/>
+                        </WindowsFormsHost>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>-->
+    
+    <!--Dependency properties nodig-->
+    <!--<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <WindowsFormsHost VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15">
+            <wal:TerminalControl UserName="{Binding Source={x:Static properties:Settings.Default},Path=Names}" Password="" Host="" Method="SSH2"/>
+        </WindowsFormsHost>
+        <WindowsFormsHost VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15" Grid.Row="1">
+            <wal:TerminalControl UserName="" Password="" Host="" Method="SSH2"/>
+        </WindowsFormsHost>
+    </Grid>-->
+    
+    <!-- Dependency properties needed, binding met sshuc viewmodel naar terminal control-->
+    <!--<Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10,10,10,10">
+            <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl.DataContext>
+                    <CollectionViewSource Source="{Binding Path=LstSSHClients}"/>
+                </ItemsControl.DataContext>
+                <ItemsControl.ItemsPanel>
+                   <ItemsPanelTemplate>
+                        <UniformGrid Rows="2"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="5,5,5,5">
+                            <v:SSHUC/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>-->
+
+    <!--Old SSHUC zelfgemaakte met SSH.NET-->
+    <!--<Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="10,10,10,10">
+            <ItemsControl ItemsSource="{Binding}">
+                <ItemsControl.DataContext>
+                    <CollectionViewSource Source="{Binding Path=LstSSHClients}"/>
+                </ItemsControl.DataContext>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="2"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="Black" BorderThickness="1" Margin="5,5,5,5">
+                            <ListView ItemsSource="{Binding Results}" Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="15">
+                                    <GridView>
+                                        <GridViewColumn Header="Result" DisplayMemberBinding="{Binding}"/>
+                                    </GridView>
+                                </ListView>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </Grid>-->
+</UserControl>

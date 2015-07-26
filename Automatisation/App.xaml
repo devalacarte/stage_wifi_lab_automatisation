@@ -1,0 +1,14 @@
+﻿<Application x:Class="Automatisation.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="View/MainWindow.xaml"
+             Startup="Application_Startup"
+             DispatcherUnhandledException="AppUI_DispatcherUnhandledException">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/View/Skins/MainSkin.xaml"/>
+            </ResourceDictionary.MergedDictionaries>         
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

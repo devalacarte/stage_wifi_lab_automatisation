@@ -1,0 +1,66 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Automatisation.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="IP_AGILENT" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.2.200</Value>
+    </Setting>
+    <Setting Name="IP_TEKTRONIX" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.2.210</Value>
+    </Setting>
+    <Setting Name="IP_IPERF_CLIENT" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.2.50</Value>
+    </Setting>
+    <Setting Name="IPERFCLIENTUSER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rik</Value>
+    </Setting>
+    <Setting Name="IPERFCLIENTPASS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rik</Value>
+    </Setting>
+    <Setting Name="IPERFCLIENTPORT" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="IP_IPERF_SERVER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.2.60</Value>
+    </Setting>
+    <Setting Name="IPERFSERVERUSER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rik</Value>
+    </Setting>
+    <Setting Name="IPERFSERVERPASS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">rik</Value>
+    </Setting>
+    <Setting Name="IPERFSERVERPORT" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">22</Value>
+    </Setting>
+    <Setting Name="IP_FILESERVER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.2.5</Value>
+    </Setting>
+    <Setting Name="FILESERVERUSER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">xavier</Value>
+    </Setting>
+    <Setting Name="FILESERVERPASS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1234</Value>
+    </Setting>
+    <Setting Name="FILESERVERPORT" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">21</Value>
+    </Setting>
+    <Setting Name="IP_DATABASE" Type="System.String" Scope="User">
+      <Value Profile="(Default)">192.168.2.5</Value>
+    </Setting>
+    <Setting Name="MYSQL_USER" Type="System.String" Scope="User">
+      <Value Profile="(Default)">root</Value>
+    </Setting>
+    <Setting Name="MYSQL_PASS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1234</Value>
+    </Setting>
+    <Setting Name="MYSQL_DB" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="AGILENT_TIMEOUT" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">30000</Value>
+    </Setting>
+    <Setting Name="NLOG_LOGFILE_LOCATION" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

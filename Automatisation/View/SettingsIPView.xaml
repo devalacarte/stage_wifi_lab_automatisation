@@ -1,0 +1,104 @@
+﻿<Window x:Class="Automatisation.View.SettingsIPView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+        xmlns:ignore="http://www.ignore.com"
+        xmlns:vm="clr-namespace:Automatisation.ViewModel"
+        xmlns:v="clr-namespace:Automatisation.View" 
+        mc:Ignorable="d ignore"
+        Width="560" Height="355" ResizeMode="NoResize" Title="Ip Settings">
+    
+        <Window.DataContext>
+            <vm:SettingsIPVM/>
+        </Window.DataContext>
+
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Closing">
+                <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=ViewClosing}" PassEventArgsToCommand="True"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="Loaded">
+                <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=ViewLoaded}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+    <Grid x:Name="LayoutRoot" Margin="0,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Menu IsMainMenu="True" VerticalAlignment="Top" Padding="0" Background="{x:Null}">
+            <MenuItem Header="_File">
+                <MenuItem Header="Save" Command="{Binding MenuFileSave}"/>
+                <MenuItem Header="Exit" Command="{Binding MenuFileExit}"/>
+            </MenuItem>
+        </Menu>
+
+        <Grid x:Name="grdSettingsIP" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition Width="310"/>
+                <ColumnDefinition Width="134"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Style="{StaticResource LabelDesc}" Text="Powermeter" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" d:LayoutOverrides="Width"/>
+            <TextBox Name="txtPower" Text="{Binding Path=IPs.IPPower, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="0" d:LayoutOverrides="Height" VerticalAlignment="Center" Margin="15,5"/>
+            <Button Content="Ping" Grid.Column="3" Grid.Row="0" d:LayoutOverrides="Height" Command="{Binding Ping}" CommandParameter="{Binding ElementName=txtPower,Path=Text}" Tag="{Binding ElementName=txtPower,Path=Text}"/>
+
+            <TextBlock Style="{StaticResource LabelDesc}" Text="Spectrum" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" d:LayoutOverrides="Width"/>
+            <TextBox Name="txtSpectrum" Text="{Binding Path=IPs.IPSpectrum,NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="1" d:LayoutOverrides="Height" VerticalAlignment="Center" Margin="15,5"/>
+            <Button Content="Ping" Grid.Column="3" Grid.Row="1" d:LayoutOverrides="Height" Command="{Binding Ping}" CommandParameter="{Binding ElementName=txtSpectrum,Path=Text}" Tag="{Binding ElementName=txtSpectrum,Path=Text}"/>
+
+            <TextBlock Style="{StaticResource LabelDesc}" Text="Iperf Server" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" d:LayoutOverrides="Width"/>
+            <TextBox Name="txtIperfServer" Text="{Binding Path=IPs.IPIperfServer, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="2" d:LayoutOverrides="Height" VerticalAlignment="Center" Margin="15,5"/>
+            <Button Content="Ping" Grid.Column="3" Grid.Row="2" d:LayoutOverrides="Height" Command="{Binding Ping}" CommandParameter="{Binding ElementName=txtIperfServer,Path=Text}"  Tag="{Binding ElementName=txtIperfServer,Path=Text}" />
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3">
+                <TextBlock Style="{StaticResource LabelDesc}" Text="User" d:LayoutOverrides="Width"/>
+                <TextBox VerticalAlignment="Center" Width="95" Text="{Binding Path=IPs.IPERFServerUser, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap"/>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Pass" d:LayoutOverrides="Width"/>
+                <TextBox VerticalAlignment="Center" Width="95" Text="{Binding Path=IPs.IPERFServerPass, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap"/>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Port" d:LayoutOverrides="Width"/>
+                <TextBox VerticalAlignment="Center" Width="30" Text="{Binding Path=IPs.IPERFServerPort, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <TextBlock Style="{StaticResource LabelDesc}" Text="Iperf Client" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="4" Grid.RowSpan="1" d:LayoutOverrides="Width"/>
+            <TextBox Name="txtIperfClient" Text="{Binding Path=IPs.IPIperfClient, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="4" d:LayoutOverrides="Height" VerticalAlignment="Center" Margin="15,5"/>
+            <Button Content="Ping" Grid.Column="3" Grid.Row="4" d:LayoutOverrides="Height" Command="{Binding Ping}" CommandParameter="{Binding ElementName=txtIperfClient,Path=Text}" Tag="{Binding ElementName=txtIperfClient,Path=Text}"/>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5">
+                <TextBlock Style="{StaticResource LabelDesc}" Text="User" d:LayoutOverrides="Width"/>
+                <TextBox VerticalAlignment="Center" Width="95" Text="{Binding Path=IPs.IPERFClientUser, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap"/>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Pass" d:LayoutOverrides="Width"/>
+                <TextBox VerticalAlignment="Center" Width="95" Text="{Binding Path=IPs.IPERFClientPass, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap"/>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Port" d:LayoutOverrides="Width"/>
+                <TextBox VerticalAlignment="Center" Width="30" Text="{Binding Path=IPs.IPERFClientPort, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <TextBlock Style="{StaticResource LabelDesc}" Text="Fileserver" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="6" Grid.RowSpan="1" d:LayoutOverrides="Width"/>
+            <TextBox Name="txtFileserver" Text="{Binding Path=IPs.IPFileserver, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="6" d:LayoutOverrides="Height" VerticalAlignment="Center" Margin="15,5"/>
+            <Button Content="Ping" Grid.Column="3" Grid.Row="6" d:LayoutOverrides="Height" Command="{Binding Ping}" CommandParameter="{Binding ElementName=txtFileserver,Path=Text}" Tag="{Binding ElementName=txtFileserver,Path=Text}"/>
+
+            <TextBlock Style="{StaticResource LabelDesc}" Text="Database" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="7" Grid.RowSpan="1" d:LayoutOverrides="Width"/>
+            <TextBox  Name="txtDatabase" Text="{Binding Path=IPs.IPDatabase, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, Mode=TwoWay}" Validation.ErrorTemplate="{StaticResource ErrorTemplate}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="7" d:LayoutOverrides="Height" VerticalAlignment="Center" Margin="15,5"/>
+            <Button Content="Ping" Grid.Column="3" Grid.Row="7" d:LayoutOverrides="Height" Command="{Binding Ping}" CommandParameter="{Binding ElementName=txtDatabase,Path=Text}" Tag="{Binding ElementName=txtDatabase,Path=Text}"/>
+
+            <TextBlock Style="{StaticResource LabelDesc}" Text="Loglocation" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="8" Grid.RowSpan="1" d:LayoutOverrides="Width"/>
+            <TextBox  Text="{Binding Path=LogFolder, UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap" Grid.Column="1" Grid.Row="8" d:LayoutOverrides="Height" VerticalAlignment="Center" Margin="15,5"/>
+            <Button Content="..." Grid.Column="3" Grid.Row="8" d:LayoutOverrides="Height" Command="{Binding CMDFolderLocation}"/>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,265 @@
+﻿<Window x:Class="Automatisation.View.SettingsSpectrumView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Automatisation.ViewModel"
+        xmlns:v="clr-namespace:Automatisation.View" 
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+        xmlns:conv="clr-namespace:Automatisation.Convertors" 
+        Title="SettingsSpectrumView" ResizeMode="NoResize" Height="700">
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=ViewLoaded}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.DataContext>
+        <vm:SettingsSpectrumVM/>
+    </Window.DataContext>
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <conv:BooleanInvertConvertor x:Key="BooleanInvertConvertor"/>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    
+
+    <Grid Margin="0,0,-2,0" Width="764">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"/>
+            <ColumnDefinition Width="15*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Freq / Channel" Margin="0,23,0,426">
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Center Freq (xHz): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Enter a prefex for xHZ: 800M, 0.8G" Text="{Binding Spectrum.FQ_Center}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Start Freq (xHz): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Enter a prefex for xHZ: 800M, 0.8G" Name="txtFreqStart" Text="{Binding Spectrum.FQ_Start}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Start Freq (xHz): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Enter a prefex for xHZ: 800M, 0.8G" Name="txtFreqStop" Text="{Binding Spectrum.FQ_Stop}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Channel: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="3" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Only usable when ChanelTable is not NONE" IsEnabled="{Binding Spectrum.AllowChannelChange}" Text="{Binding Spectrum.Ch}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="3" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="ChannelTable: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="4" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <ComboBox ItemsSource="{Binding Spectrum.ChTableArray}" SelectedValue="{Binding Spectrum.ChTableSelected, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="4" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Center Freq Step:" Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="5" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox Text="{Binding Spectrum.FQ_Step}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="5" Grid.RowSpan="1" VerticalAlignment="Center" IsReadOnly="True" IsReadOnlyCaretVisible="True"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Span" Margin="0,250,0,289">
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Span (xHz): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Enter a prefex for xHZ: 800M, 0.8G" Text="{Binding Spectrum.Span}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Start Freq (xHz): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Enter a prefex for xHZ: 800M, 0.8G" Text="{Binding ElementName=txtFreqStart, Path=Text}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Start Freq (xHz): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Enter a prefex for xHZ: 800M, 0.8G" Text="{Binding ElementName=txtFreqStop, Path=Text}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Trigger" Margin="0,387,0,202">
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Repeat: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <ComboBox SelectedValue="{Binding Spectrum.Trigger_Repeat}" IsSynchronizedWithCurrentItem="True" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" VerticalAlignment="Center">
+                    <ComboBoxItem Content="Continuous"></ComboBoxItem>
+                    <ComboBoxItem Content="Single"></ComboBoxItem>
+                </ComboBox>
+
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Measure" Margin="0,474,0,131">
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Measure: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <ComboBox Name="cboMeasure" SelectedValue="{Binding Spectrum.Measure, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" VerticalAlignment="Center" SelectionChanged="cboMeasure_SelectionChanged">
+                    <ComboBoxItem Content="OFF"></ComboBoxItem>
+                    <ComboBoxItem Content="CHP"></ComboBoxItem>
+                    <ComboBoxItem Content="ACP"></ComboBoxItem>
+                    <ComboBoxItem Content="OBW"></ComboBoxItem>
+                    <ComboBoxItem Content="EBW"></ComboBoxItem>
+                    <ComboBoxItem Content="CNR"></ComboBoxItem>
+                    <ComboBoxItem Content="CFR"></ComboBoxItem>
+                    <ComboBoxItem Content="SPUR"></ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+
+
+        <GroupBox Header="Amplitude" Margin="0,23,0,426" Grid.Column="1">
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Ref Level: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox Text="{Binding Spectrum.Ampl_RefLevel}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Auto Level: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <Button Content="Auto Level" Command="{Binding AutoLevel}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" Margin="0" VerticalAlignment="Center" Width="125"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Auto|mixer(on) ref(off): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <CheckBox IsChecked="{Binding Spectrum.Ampl_IsAutoAndMixer}" Content="{Binding Spectrum.Ampl_AutoOrMixerDescription}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" Margin="5,0,0,0" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Rf Att (db): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="3" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox Text="{Binding Spectrum.Ampl_RFAtt}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="3" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Mixer Level (dbm): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="4" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <ComboBox SelectedValue="{Binding Spectrum.Ampl_MixLvl, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="4" Grid.RowSpan="1" VerticalAlignment="Center">
+                    <ComboBoxItem Content="-5"></ComboBoxItem>
+                    <ComboBoxItem Content="-10"></ComboBoxItem>
+                    <ComboBoxItem Content="-15"></ComboBoxItem>
+                    <ComboBoxItem Content="-20"></ComboBoxItem>
+                    <ComboBoxItem Content="-25"></ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Vertical Scale (db/div): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="5" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox Text="{Binding Spectrum.Ampl_VertScale}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="5" Grid.RowSpan="1" VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="RBW/FFT" Margin="0,250,0,202" Grid.Column="1">
+            <Grid Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Auto | Man | FFT: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <ComboBox Name="cboRBWFFT" SelectedValue="{Binding Spectrum.RBWOrFFT, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" VerticalAlignment="Center">
+                    <ComboBoxItem Content="Auto"></ComboBoxItem>
+                    <ComboBoxItem Content="Man"></ComboBoxItem>
+                    <ComboBoxItem Content="FFT"></ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="RBW (xHz): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Enter a prefex for xHZ: 80k" Text="{Binding Spectrum.RBW_Hz}" IsEnabled="{Binding Path=Spectrum.RBWEnable}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="RBW Filtershape: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <ComboBox SelectedValue="{Binding Spectrum.RBW_FilterShape, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" IsEnabled="{Binding Path=Spectrum.RBWEnable}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" VerticalAlignment="Center">
+                    <ComboBoxItem Content="RECT"></ComboBoxItem>
+                    <ComboBoxItem Content="GAUS"></ComboBoxItem>
+                    <ComboBoxItem Content="NYQ"></ComboBoxItem>
+                    <ComboBoxItem Content="RNYQ"></ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="FFT Points " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="3" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Sets the number of FFT points. Range: 64 to 65536 in powers of 2." Text="{Binding Spectrum.FFT_Points}" IsEnabled="{Binding Path=Spectrum.FFTEnable}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="3" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="FFT Windows " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="4" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <ComboBox SelectedValue="{Binding Spectrum.FFT_Windows,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" IsEnabled="{Binding Path=Spectrum.FFTEnable}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="4" Grid.RowSpan="1" VerticalAlignment="Center">
+                    <!--{ BH3A | BH3B | BH4A | BH4B | BLACkman | HAMMing | HANNing | PARZen | ROSenfield | WELCh | SLOBe | SCUBed | ST4T | FLATtop | RECT }-->
+                    <ComboBoxItem Content="BH3A"/>
+                    <ComboBoxItem Content="BH3B"/>
+                    <ComboBoxItem Content="BH4A"/>
+                    <ComboBoxItem Content="BH4B"/>
+                    <ComboBoxItem Content="BLACK"/>
+                    <ComboBoxItem Content="HAMM"/>
+                    <ComboBoxItem Content="HANN"/>
+                    <ComboBoxItem Content="PARZ"/>
+                    <ComboBoxItem Content="ROS"/>
+                    <ComboBoxItem Content="WELC"/>
+                    <ComboBoxItem Content="SLOB"/>
+                    <ComboBoxItem Content="SCUB"/>
+                    <ComboBoxItem Content="ST4T"/>
+                    <ComboBoxItem Content="FLAT"/>
+                    <ComboBoxItem Content="RECT"/>
+                </ComboBox>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Extended res " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="5" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <!--<TextBox Text="{Binding Spectrum.Ch}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="5" Grid.RowSpan="1" VerticalAlignment="Center"/>-->
+                <ComboBox SelectedValue="{Binding Spectrum.Extended_Res}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="5" Grid.RowSpan="1" VerticalAlignment="Center">
+                    <ComboBoxItem Content="ON"/>
+                    <ComboBoxItem Content="OFF"/>
+                </ComboBox>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Measure Setup" Margin="0,474,0,72" Grid.Column="1">
+            <Grid Name="grdCHP" Margin="0,10,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="125"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Bandwidth (xHz): " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox ToolTip="Enter a prefex for xHZ: 80k" Text="{Binding Spectrum.Meas_CHP_Band}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="0" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="FilterShape: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <ComboBox Name="FilterShape" SelectedValue="{Binding Spectrum.Meas_CHP_Filter, UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Content" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.RowSpan="1" VerticalAlignment="Center" SelectionChanged="FilterShape_SelectionChanged">
+                    <ComboBoxItem Content="RECT"></ComboBoxItem>
+                    <ComboBoxItem Content="GAUS"></ComboBoxItem>
+                    <ComboBoxItem Content="NYQ"></ComboBoxItem>
+                    <ComboBoxItem Content="RNYQ"></ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Style="{StaticResource LabelDesc}" Text="Rolloff Ratio: " Grid.Column="0" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0"/>
+                <TextBox Name="RollOffRatio" ToolTip="Range: 0.0001 to 1 (default: 0.5). Only works on filtertype NYQ/RNYQ" Text="{Binding Spectrum.Meas_CHP_RollOff}" Grid.Column="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.RowSpan="1" VerticalAlignment="Center"/>
+
+
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Window>

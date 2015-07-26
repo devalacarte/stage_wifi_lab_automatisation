@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="Automatisation.View.MainMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:vm="clr-namespace:Automatisation.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Menu IsMainMenu="True" VerticalAlignment="Top" Padding="0" Background="{x:Null}" Grid.Row="0" Height="18">
+            <MenuItem Header="_View">
+                <!--<MenuItem Name="MenuViewPower" Header="Power" IsCheckable="True" IsChecked="{Binding IsPowerEnabled, Mode=TwoWay}" />
+                <MenuItem Name="MenuViewSpectrum" Header="Spectrum" IsCheckable="True" IsChecked="{Binding IsSpectrumEnabled, Mode=TwoWay}"/>
+                <MenuItem Name="MenuViewAttenuator" Header="Attenuator" IsCheckable="True" IsChecked="{Binding IsAttEnabled, Mode=TwoWay}"/>-->
+                <MenuItem Header="Power" IsCheckable="True" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsPowerEnabled, Mode=TwoWay}"/>
+                <MenuItem Header="Spectrum" IsCheckable="True" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsSpectrumEnabled, Mode=TwoWay}"/>
+                <MenuItem Header="Attenuator" IsCheckable="True" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsAttEnabled, Mode=TwoWay}"/>
+                <MenuItem Header="Iperf" IsCheckable="True" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsIperfEnabled, Mode=TwoWay}"/>
+            </MenuItem>
+            <MenuItem Header="_Settings">
+                <MenuItem Header="IPs" Command="{Binding MenuConfigIP}" />
+                <MenuItem IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsSpectrumEnabled}" ToolTip="Various settings for the Tektronix RSA3308A" Header="Tektronix" Command="{Binding MenuConfigTek}"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+                <MenuItem Header="Agilent">
+                    <MenuItem Header="User Guide" Command="{Binding MenuHelpAgilentUser}"/>
+                    <MenuItem Header="Programming Guide" Command="{Binding MenuHelpAgilentProg}"/>
+                </MenuItem>
+                <MenuItem Header="Tektronix">
+                    <MenuItem Header="User Guide" Command="{Binding MenuHelpTekUser}"/>
+                    <MenuItem Header="Programming Guide" Command="{Binding MenuHelpTekProg}"/>
+                </MenuItem>
+                <MenuItem Header="Attenuators">
+                    <MenuItem Header="User Guide" Command="{Binding MenuHelpAttManual}"/>
+                    <MenuItem Header="API Guide" Command="{Binding MenuHelpAttAPI}"/>
+                </MenuItem>
+                <MenuItem Header="Iperf" Command="{Binding MenuHelpIperf}"/>
+                <MenuItem Header="Airmagnet" Command="{Binding MenuHelpAirmagnet}" />
+                <MenuItem Header="Bachelor" Command="{Binding MenuHelpBachelor}" />
+            </MenuItem>
+        </Menu>
+    </Grid>
+</UserControl>

@@ -1,0 +1,190 @@
+﻿<UserControl x:Class="Automatisation.View.MainUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:conv="clr-namespace:Automatisation.Convertors" 
+             xmlns:ap="clr-namespace:Automatisation.View.AttachedProperties"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cmd ="http://www.galasoft.ch/mvvmlight"
+             mc:Ignorable="d" Height="700" Width="700">
+    <UserControl.Resources>
+        <conv:ObservableStringCollectionToMultiLineStringConverter x:Key="ObservableStringCollectionToMultiLineStringConverter" />
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Mode=OneWay, Path=ViewLoaded}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <GroupBox Header="Enable / Disable" Grid.Row="0" Height="70" VerticalAlignment="Top" Margin="0,0,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock TextWrapping="Wrap" Text="Name:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                </StackPanel>
+                <CheckBox Content="Spectrum" Grid.Column="1" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsSpectrumEnabled, Mode=TwoWay}"/>
+                <CheckBox Content="Power" Grid.Column="2" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsPowerEnabled, Mode=TwoWay}"/>
+                <CheckBox Content="Iperf" Grid.Column="3" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsIperfEnabled, Mode=TwoWay}"/>
+                <CheckBox Content="Att" Grid.Column="4" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" IsChecked="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsAttEnabled, Mode=TwoWay}"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Spectrum" Grid.Row="1" Height="70" VerticalAlignment="Top" IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsSpectrumEnabled, Mode=OneWay}" Margin="0,0,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0" Height="40">
+                    <TextBlock TextWrapping="Wrap" Text="Center:" VerticalAlignment="Center" Margin="0,0,5,0" />
+                    <TextBox TextWrapping="Wrap" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.TabSpectrum.FQ_Center, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Height="40">
+                    <TextBlock TextWrapping="Wrap" Text="Span:" VerticalAlignment="Center" Margin="0,0,5,0" Width="35"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.TabSpectrum.Span, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="2" Height="40">
+                    <TextBlock TextWrapping="Wrap" Text="BWidth:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <TextBox TextWrapping="Wrap" Text="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.TabSpectrum.Meas_CHPower_Band, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="3" Height="40">
+                    <TextBlock TextWrapping="Wrap" Text="AVG:" VerticalAlignment="Center" Margin="0,0,5,0" Width="35"/>
+                    <TextBox TextWrapping="Wrap" Text="Notimplemented" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="Attenuators" Grid.Row="2" IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsAttEnabled, Mode=OneWay}" Margin="0,10,0,0">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ItemsControl Grid.Row="0">
+                    <ItemsControl ItemsSource="{Binding}">
+                        <ItemsControl.DataContext>
+                            <!--hierop wordt de itemscontrol itemsource gebind-->
+                            <CollectionViewSource Source="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.TabAtt.LstAtt}">
+                                <CollectionViewSource.SortDescriptions>
+                                    <scm:SortDescription PropertyName="Label" Direction="Ascending"/>
+                                </CollectionViewSource.SortDescriptions>
+                            </CollectionViewSource>
+                        </ItemsControl.DataContext>
+                        <!--verdeel de grid in 4 colommen-->
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="4"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding Att.Label}" Grid.Column="1" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Center" IsChecked="{Binding Att.IsEnabled}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ItemsControl>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <CheckBox Name="IsEveryAttSameSetting" Content="IsEveryAttSameSetting" HorizontalAlignment="Left" Margin="10,20,0,21" VerticalAlignment="Center" IsChecked="{Binding IsEveryAttSameSetting }" Width="209"/>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Height="40" Margin="10,8">
+                        <TextBlock TextWrapping="Wrap" Text="Wait (sec):" VerticalAlignment="Center" Margin="0,0,5,0" Width="35"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding WaitForAtt}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="2" Height="40" Margin="10,8">
+                        <TextBlock TextWrapping="Wrap" Text="Cycle:" VerticalAlignment="Center" Margin="0,0,5,0" Width="35"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding AmmountOfCycles}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                    </StackPanel>
+                    <StackPanel Visibility="Hidden" IsEnabled="{Binding ElementName=IsEveryAttSameSetting, Path=IsChecked, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="2" Margin="10,12,10,5" Height="40">
+                        <TextBlock TextWrapping="Wrap" Text="Att:" VerticalAlignment="Center" Margin="0,0,5,0" Width="35"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding SetAtt}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                    </StackPanel>
+                    <StackPanel IsEnabled="{Binding ElementName=IsEveryAttSameSetting, Path=IsChecked, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0" Grid.Row="1" Height="40" Margin="10">
+                        <TextBlock TextWrapping="Wrap" Text="Start:" VerticalAlignment="Center" Margin="0,0,5,0" Width="35"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding SetStart}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                    </StackPanel>
+                    <StackPanel IsEnabled="{Binding ElementName=IsEveryAttSameSetting, Path=IsChecked, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Grid.Row="1" Margin="10" Height="40">
+                        <TextBlock TextWrapping="Wrap" Text="Stop:" VerticalAlignment="Center" Margin="0,0,5,0" Width="35"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding SetStop}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                    </StackPanel>
+                    <StackPanel IsEnabled="{Binding ElementName=IsEveryAttSameSetting, Path=IsChecked, Mode=OneWay}" Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="2" Grid.Row="1" Height="40" Margin="10">
+                        <TextBlock TextWrapping="Wrap" Text="Step:" VerticalAlignment="Center" Margin="0,0,5,0" Width="35"/>
+                        <TextBox TextWrapping="Wrap" Text="{Binding SetStep}" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10" Width="87"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </GroupBox>
+
+        <!--IsEnabled="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=DataContext.IsIperfEnabled, Mode=OneWay}"-->
+        <GroupBox Header="Iperf" Grid.Row="3"  Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock TextWrapping="Wrap" Text="Server Commando:" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="15,0,15,0" HorizontalAlignment="Stretch"/>
+                <TextBox ToolTip="-t parameter verplicht" TextWrapping="Wrap" Text="{Binding IperfServerCommando}" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10,15,10"/>
+
+                <TextBlock TextWrapping="Wrap" Text="Client Commando:" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" Margin="15,0,15,0" HorizontalAlignment="Stretch"/>
+                <TextBox ToolTip="-t parameter verplicht" TextWrapping="Wrap" Text="{Binding IperfClientCommando}" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,10,15,10"/>
+
+                <CheckBox IsChecked="{Binding IsServerWindows}" Content="Windows" HorizontalAlignment="Left" Margin="0" Grid.Column="2" Grid.Row="0" VerticalAlignment="Center"/>
+                <CheckBox IsChecked="{Binding IsClientWindows}" Content="Windows" HorizontalAlignment="Left" Margin="0" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center"/>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Header="..." Grid.Row="4" Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Start" Command="{Binding CMDStartMeasure}" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="75" Grid.ColumnSpan="2"/>
+                <!--<Button Content="Stop" Command="{Binding CMDStopMeasure}" Grid.Column="1" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Top" Width="75"/>-->
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Log" Grid.Row="5" Margin="0,10,0,0">
+            <TextBox Style="{StaticResource SelectableTextBlockLikeStyle}" VerticalScrollBarVisibility="Auto" ap:TextBoxUtilities.AlwaysScrollToEnd="True" AcceptsReturn="True">
+                <TextBox.Text>
+                    <MultiBinding Converter="{StaticResource ObservableStringCollectionToMultiLineStringConverter}">
+                        <Binding Path="IncomingMessages" Mode="OneWay"/>
+                        <Binding Path="IncomingMessages.Count" Mode="OneWay" />
+                    </MultiBinding>
+                </TextBox.Text>
+            </TextBox>
+        </GroupBox>
+
+    </Grid>
+</UserControl>
